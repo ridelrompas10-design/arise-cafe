@@ -7,47 +7,72 @@
             <div class="card border-0 shadow-sm rounded">
                 <div class="card-body p-4">
                     <h6>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-person mb-1" viewBox="0 0 16 16">
-                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-bag mb-1" viewBox="0 0 16 16">
+                            <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
                         </svg>
-                        My Profile
+                        My Orders
                     </h6>
                     <hr />
 
-                    <form wire:submit.prevent="update">
+                    @forelse ($transactions as $transaction)
+                    <div class="card rounded border mb-3">
+                        <div class="row g-0">
+                            <div class="col-12 col-md-12">
+                                <a href="{{ route('account.my-orders.show', $transaction->snap_token) }}" wire:navigate class="text-decoration-none text-dark">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="mt-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-basket3 mb-1 me-2" viewBox="0 0 16 16">
+                                                    <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM3.394 15l-1.48-6h-.97l1.525 6.426a.75.75 0 0 0 .729.574h9.606a.75.75 0 0 0 .73-.574L15.056 9h-.972l-1.479 6z" />
+                                                </svg>
+                                                <span class="fw-bold">Order ID #{{ $transaction->invoice }}</span>
+                                            </div>
+                                            <div>
+                                                @if($transaction->status == 'pending')
+                                                <button class="btn btn-warning btn-sm rounded shadow-sm border-0">PENDING</button>
+                                                @elseif($transaction->status == 'success')
+                                                <button class="btn btn-success btn-sm rounded shadow-sm border-0">SUCCESS</button>
+                                                @elseif($transaction->status == 'expired')
+                                                <button class="btn btn-warning btn-sm rounded shadow-sm border-0" disabled>EXPIRED</button>
+                                                @elseif($transaction->status == 'failed')
+                                                <button class="btn btn-danger btn-sm rounded shadow-sm border-0">FAILED</button>
+                                                @endif
 
-                        <div class="input-group mb-3">
-                          <input type="file" wire:model="image" class="form-control rounded @error('image') is-invalid @enderror" v-model="image" placeholder="Upload Image" onchange="previewImage')">
-                        </div>
-                        @error('image')
-                            <div class="alert alert-danger mt-2 rounded border-0">
-                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <span class="fw-bold">Grand Total:</span>
+                                            </div>
+                                            <div>
+                                                <span class="fw-bold">Rp. {{ number_format($transaction->total) }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                        @enderror
+                        </div>
+                    </div>
+                    @empty
+                    <div class="card rounded border mb-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center">
+                                <div class="mt-2">
+                                    <span class="fw-bold">You don't have any orders.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endforelse
 
-                        <div class="input-group mb-3">
-                          <input type="text" wire:model="name" class="form-control rounded @error('name') is-invalid @enderror" v-model="name" placeholder="Full Name">
-                        </div>
-                        @error('name')
-                            <div class="alert alert-danger mt-2 rounded border-0">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                        
-                        <div class="input-group mb-3">
-                          <input type="email" wire:model="email" class="form-control rounded @error('email') is-invalid @enderror" v-model="email" placeholder="Email Address">
-                        </div>
-                        @error('email')
-                            <div class="alert alert-danger mt-2 rounded border-0">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                        
-                        <button class="btn btn-orange-2 rounded" type="submit">Update Profile</button>
-                      </form>
+                    <!-- Navigasi Pagination -->
+                    {{ $transactions->links('vendor.pagination.simple-default') }}
+
 
                 </div>
             </div>
+
         </div>
     </div>
 </div>
