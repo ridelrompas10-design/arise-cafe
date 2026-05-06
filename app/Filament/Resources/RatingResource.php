@@ -19,28 +19,37 @@ class RatingResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-sparkles';
     protected static ?string $navigationGroup = 'Ratings & Customers';
-
     protected static ?string $navigationLabel = 'Ratings & Reviews';
-
     protected static ?string $pluralLabel = 'Ratings & Reviews';
 
     public static function getNavigationSort(): ?int
     {
-    return 6;
+        return 6;
     }
 
     public static function canCreate(): bool
     {
-    return false;
+        return false;
     }
-
-
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Select::make('customer_id')
+                    ->relationship('customer', 'name')
+                    ->label('Customer')
+                    ->disabled(),
+                Forms\Components\Select::make('product_id')
+                    ->relationship('product', 'name')
+                    ->label('Product')
+                    ->disabled(),
+                Forms\Components\TextInput::make('rating')
+                    ->label('Rating')
+                    ->disabled(),
+                Forms\Components\Textarea::make('review')
+                    ->label('Review')
+                    ->disabled(),
             ]);
     }
 
@@ -48,11 +57,26 @@ class RatingResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('customer.name')
+                    ->label('Customer')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('product.name')
+                    ->label('Product')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('rating')
+                    ->label('Rating')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('review')
+                    ->label('Review')
+                    ->limit(50),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Date')
+                    ->dateTime()
+                    ->sortable(),
             ])
-            ->filters([
-                //
-            ])
+            ->filters([])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
@@ -65,12 +89,10 @@ class RatingResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
-public static function getPages(): array
+    public static function getPages(): array
     {
         return [
             'index' => Pages\ListRatings::route('/'),
