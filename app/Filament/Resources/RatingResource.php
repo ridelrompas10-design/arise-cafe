@@ -36,17 +36,18 @@ class RatingResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('customer_id')
-                    ->relationship('customer', 'name')
-                    ->label('Customer')
+                Forms\Components\TextInput::make('customer_id')
+                    ->label('Customer ID')
                     ->disabled(),
-                Forms\Components\Select::make('product_id')
-                    ->relationship('product', 'name')
-                    ->label('Product')
+
+                Forms\Components\TextInput::make('product_id')
+                    ->label('Product ID')
                     ->disabled(),
+
                 Forms\Components\TextInput::make('rating')
                     ->label('Rating')
                     ->disabled(),
+
                 Forms\Components\Textarea::make('review')
                     ->label('Review')
                     ->disabled(),
