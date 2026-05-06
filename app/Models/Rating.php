@@ -1,14 +1,31 @@
-public function customer()
-{
-    return $this->belongsTo(Customer::class);
-}
+<?php
 
-public function product()
-{
-    return $this->belongsTo(Product::class);
-}
+namespace App\Models;
 
-public function transactionDetail()
+use Illuminate\Database\Eloquent\Model;
+
+class Rating extends Model
 {
-    return $this->belongsTo(TransactionDetail::class);
+    /**
+     * fillable
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'customer_id',
+        'product_id',
+        'transaction_detail_id',
+        'rating',
+        'review',
+    ];
+
+    /**
+     * customer
+     *
+     * @return void
+     */
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }

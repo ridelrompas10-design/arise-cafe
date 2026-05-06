@@ -1,24 +1,79 @@
-->columns([
-    Tables\Columns\TextColumn::make('customer.name')
-        ->label('Customer')
-        ->searchable()
-        ->sortable(),
+<?php
 
-    Tables\Columns\TextColumn::make('product.name')
-        ->label('Product')
-        ->searchable()
-        ->sortable(),
+namespace App\Filament\Resources;
 
-    Tables\Columns\TextColumn::make('rating')
-        ->label('Rating')
-        ->sortable(),
+use App\Filament\Resources\RatingResource\Pages;
+use App\Filament\Resources\RatingResource\RelationManagers;
+use App\Models\Rating;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-    Tables\Columns\TextColumn::make('review')
-        ->label('Review')
-        ->limit(50),
+class RatingResource extends Resource
+{
+    protected static ?string $model = Rating::class;
 
-    Tables\Columns\TextColumn::make('created_at')
-        ->label('Date')
-        ->dateTime()
-        ->sortable(),
-])
+    protected static ?string $navigationIcon = 'heroicon-o-sparkles';
+    protected static ?string $navigationGroup = 'Ratings & Customers';
+
+    protected static ?string $navigationLabel = 'Ratings & Reviews';
+
+    protected static ?string $pluralLabel = 'Ratings & Reviews';
+
+    public static function getNavigationSort(): ?int
+    {
+    return 6;
+    }
+
+    public static function canCreate(): bool
+    {
+    return false;
+    }
+
+
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                //
+            ]);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->columns([
+                //
+            ])
+            ->filters([
+                //
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
+public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListRatings::route('/'),
+        ];
+    }
+}
