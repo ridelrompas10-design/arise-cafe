@@ -27,9 +27,11 @@ Food Store - Eat Your Favorite Foods
                     <div class="carousel-inner">
 
                         @foreach ($sliders as $key => $slider)
-                            <div class="carousel-item @if($key == 0) active @endif">
+                        <div class="carousel-item @if($key == 0) active @endif">
+                            <a href="{{ $slider->link }}">
                                 <img src="{{ asset('/storage/' . $slider->image) }}" class="d-block w-100 rounded">
-                            </div>
+                            </a>
+                        </div>
                         @endforeach
 
                     </div>
@@ -57,7 +59,7 @@ Food Store - Eat Your Favorite Foods
                 <hr />
                 <div class="row flex-nowrap overflow-auto scroll-custom">
                     @foreach ($categories as $category)
-                        <x-cards.category :category="$category" />
+                    <x-cards.category :category="$category" />
                     @endforeach
                 </div>
             </div>
@@ -89,7 +91,7 @@ Food Store - Eat Your Favorite Foods
                 <div class="row flex-nowrap overflow-auto scroll-custom">
 
                     @foreach ($popularProducts as $product)
-                        <x-cards.product-popular :product="$product" />
+                    <x-cards.product-popular :product="$product" />
                     @endforeach
 
                 </div>
@@ -121,7 +123,7 @@ Food Store - Eat Your Favorite Foods
                 <div class="row">
                     <div class="col-12 col-md-12 mb-2">
                         @foreach ($latestProducts as $product)
-                            <x-cards.product :product="$product" />
+                        <x-cards.product :product="$product" />
                         @endforeach
                     </div>
                 </div>
