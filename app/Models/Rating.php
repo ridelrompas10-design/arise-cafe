@@ -1,31 +1,14 @@
-<?php
-
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Model;
-
-class Rating extends Model
+public function customer()
 {
-    /**
-     * fillable
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'customer_id',
-        'product_id',
-        'transaction_detail_id',
-        'rating',
-        'review',
-    ];
+    return $this->belongsTo(Customer::class);
+}
 
-    /**
-     * customer
-     *
-     * @return void
-     */
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class);
-    }
+public function product()
+{
+    return $this->belongsTo(Product::class);
+}
+
+public function transactionDetail()
+{
+    return $this->belongsTo(TransactionDetail::class);
 }
