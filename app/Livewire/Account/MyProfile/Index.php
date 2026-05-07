@@ -48,7 +48,7 @@ class Index extends Component
         if ($this->image) {
             // Upload gambar
             $imageName = $this->image->hashName();
-            $this->image->storeAs('avatars', $imageName);
+            $this->image->storeAs('avatars', $imageName, 'public');
 
             // Update data pengguna dengan gambar
             $profile = Customer::findOrFail(auth()->guard('customer')->user()->id);
