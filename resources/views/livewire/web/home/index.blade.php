@@ -57,7 +57,7 @@ Food Store - Eat Your Favorite Foods
                     CATEGORIES
                 </span>
                 <hr />
-                <div class="row flex-nowrap overflow-auto scroll-custom">
+                <div class="row row-cols-3 g-3">
                     @foreach ($categories as $category)
                     <x-cards.category :category="$category" />
                     @endforeach
