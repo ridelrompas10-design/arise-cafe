@@ -1,128 +1,183 @@
 @import url(https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap);
 
+/* =============================
+   BASE
+   ============================= */
+
 body {
     background-color: #e9e9f5 !important;
-    font-family: Quicksand, sans-serif !important
+    font-family: Quicksand, sans-serif !important;
 }
+
+/* =============================
+   BORDER RADIUS
+   ============================= */
 
 .rounded-menu {
-    border-radius: 50px !important
+    border-radius: 50px !important;
 }
 
-.rounded-bottom-custom,
+.rounded-top-custom {
+    border-top-left-radius: 24px !important;
+    border-top-right-radius: 24px !important;
+}
+
+.rounded-bottom-custom {
+    border-bottom-left-radius: 24px !important;
+    border-bottom-right-radius: 24px !important;
+}
+
 .rounded-start {
-    border-bottom-left-radius: 24px !important
+    border-top-left-radius: 24px !important;
+    border-bottom-left-radius: 24px !important;
 }
 
-.rounded-start,
-.rounded-top-custom {
-    border-top-left-radius: 24px !important
-}
-
-.rounded-bottom-custom,
 .rounded-end {
-    border-bottom-right-radius: 24px !important
-}
-
-.rounded-end,
-.rounded-top-custom {
-    border-top-right-radius: 24px !important
-}
-
-.h-150 {
-    height: 150px !important
-}
-
-.btn-back,
-.btn-orange {
-    width: 40px;
-    height: 40px
-}
-
-.h-min-100 {
-    margin-top: -100px !important
+    border-top-right-radius: 24px !important;
+    border-bottom-right-radius: 24px !important;
 }
 
 .rounded,
 .vue3-snackbar-message {
-    border-radius: 24px !important
+    border-radius: 24px !important;
 }
+
+/* =============================
+   TYPOGRAPHY
+   ============================= */
 
 .small {
-    font-size: .75rem !important
+    font-size: .75rem !important;
 }
 
-.scroll-container {
-    display: flex;
-    overflow-x: auto;
-    scrollbar-width: thin
-}
+/* =============================
+   COLORS & TEXT
+   ============================= */
 
-.scroll-custom::-webkit-scrollbar {
-    height: 6px
-}
-
-.scroll-custom::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 10px
-}
-
-.scroll-custom::-webkit-scrollbar-thumb:hover {
-    background: #555
-}
-
+.text-orange,
 .menu-active,
 .router-link-active,
-.router-link-exact-active,
-.text-orange {
-    color: #e94e15 !important
+.router-link-exact-active {
+    color: #e94e15 !important;
 }
+
+/* =============================
+   BUTTONS
+   ============================= */
 
 .btn-orange,
 .btn-orange-2 {
     background-color: #e94e15 !important;
-    color: #fff !important
+    color: #fff !important;
 }
 
 .btn-orange {
+    width: 40px;
+    height: 40px;
     border-radius: 50% !important;
     display: flex;
     align-items: center;
-    justify-content: center
-}
-
-.btn-back,
-.btn-cart-delete,
-.btn-rating {
-    position: relative;
-    border-radius: 50% !important;
-    display: flex;
-    align-items: center
-}
-
-.btn-back,
-.btn-orange-light {
-    background-color: #e9e9f5 !important;
-    color: #e94e15 !important
+    justify-content: center;
 }
 
 .btn-back {
-    justify-content: center
+    width: 40px;
+    height: 40px;
+    background-color: #e9e9f5 !important;
+    color: #e94e15 !important;
+    border-radius: 50% !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.btn-orange-light {
+    background-color: #e9e9f5 !important;
+    color: #e94e15 !important;
 }
 
 .btn-cart-delete,
 .btn-rating {
+    position: relative;
     background-color: #e92715 !important;
     color: #e9e9f5 !important;
     width: 30px;
     height: 30px;
-    justify-content: center
+    border-radius: 50% !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+/* =============================
+   QUANTITY BUTTONS
+   ============================= */
+
+.group-btn-qty,
+.group-btn-qty-2 {
+    padding: 5px;
+    border-radius: 24px;
+    width: 120px;
+}
+
+.group-btn-qty {
+    background-color: #efefef;
+}
+
+.group-btn-qty-2 {
+    background-color: #e94e1547;
+}
+
+/* =============================
+   ICON SHAPES
+   ============================= */
+
+.icon-shape {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.icon-sm {
+    width: 2rem;
+    height: 2rem;
+}
+
+/* =============================
+   LAYOUT & SPACING
+   ============================= */
+
+.h-150 {
+    height: 150px !important;
+}
+
+.h-min-100 {
+    margin-top: -100px !important;
+}
+
+.mt-80 {
+    margin-top: 80px;
+}
+
+.mt-100 {
+    margin-top: 100px;
+}
+
+.mt-150 {
+    margin-top: 150px;
+}
+
+/* =============================
+   POSITIONING
+   ============================= */
 
 .sticky-top {
     position: sticky;
     top: 0;
-    z-index: 100
+    z-index: 100;
 }
 
 .fixed-total {
@@ -130,7 +185,7 @@ body {
     bottom: 100px;
     left: 0;
     right: 0;
-    z-index: 1030
+    z-index: 1030;
 }
 
 .centered {
@@ -138,56 +193,44 @@ body {
     top: 50%;
     left: 50%;
     margin-top: -50px;
-    margin-left: -100px
+    margin-left: -100px;
 }
 
-.mt-80 {
-    margin-top: 80px
+/* =============================
+   SCROLLBAR
+   ============================= */
+
+.scroll-container {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: thin;
 }
 
-.mt-100 {
-    margin-top: 100px
+.scroll-custom::-webkit-scrollbar {
+    height: 6px;
 }
 
-.mt-150 {
-    margin-top: 150px
+.scroll-custom::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
 }
 
-.icon-shape {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    vertical-align: middle
+.scroll-custom::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
-.icon-sm {
-    width: 2rem;
-    height: 2rem
-}
-
-.group-btn-qty,
-.group-btn-qty-2 {
-    padding: 5px;
-    border-radius: 24px;
-    width: 120px
-}
-
-.group-btn-qty {
-    background-color: #efefef
-}
-
-.group-btn-qty-2 {
-    background-color: #e94e1547
-}
+/* =============================
+   INPUT NUMBER
+   ============================= */
 
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    margin: 0
+    margin: 0;
 }
+
 /* =============================
    CATEGORY CARD
    ============================= */
@@ -198,32 +241,21 @@ input[type=number]::-webkit-outer-spin-button {
     align-items: center;
     gap: 8px;
     padding: 14px 10px;
+    width: 100%;
     background: #ffffff;
     border-radius: 16px;
     border: 1.5px solid transparent;
-    transition: background 0.3s ease, border-color 0.3s ease, 
-                box-shadow 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
     cursor: pointer;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    transition: background 0.3s ease, border-color 0.3s ease,
+                box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .category-card:hover {
-    background: #c8a97e;           /* warm coffee */
+    background: #c8a97e;
     border-color: #a07850;
-    box-shadow: 0 6px 18px rgba(165,120,70,0.3);
+    box-shadow: 0 6px 18px rgba(165, 120, 70, 0.3);
     transform: translateY(-3px);
-}
-
-/* Icon wrap ikut berubah saat hover */
-.category-card:hover .category-icon-wrap {
-    background: rgba(255,255,255,0.25);
-    transition: background 0.3s ease;
-}
-
-/* Label jadi putih saat hover agar kontras */
-.category-card:hover .category-name {
-    color: #ffffff;
-    transition: color 0.3s ease;
 }
 
 .category-icon-wrap {
@@ -235,8 +267,13 @@ input[type=number]::-webkit-outer-spin-button {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     transition: background 0.3s ease;
+}
+
+.category-card:hover .category-icon-wrap {
+    background: rgba(255, 255, 255, 0.25);
 }
 
 .category-img {
@@ -253,4 +290,8 @@ input[type=number]::-webkit-outer-spin-button {
     letter-spacing: 0.01em;
     line-height: 1.3;
     transition: color 0.3s ease;
+}
+
+.category-card:hover .category-name {
+    color: #ffffff;
 }
