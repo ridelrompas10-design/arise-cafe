@@ -1,10 +1,12 @@
-<div class="col-6 col-md-4 mb-4">
+<div class="col-4 col-md-3 col-lg-2 mb-3">
     <a href="/category/{{ $category->slug }}" wire:navigate class="text-decoration-none">
-        <div class="card border-0 rounded shadow-sm">
-            <div class="card-body text-center">
-                <img src="{{ asset('/storage/' . $category->image) }}" class="img-fluid" width="50">
-                <label class="text-center">{{ $category->name }}</label>
+        <div class="category-card">
+            <div class="category-icon-wrap">
+                <img src="{{ asset('/storage/' . $category->image) }}" 
+                     alt="{{ $category->name }}"
+                     class="category-img">
             </div>
+            <span class="category-name">{{ $category->name }}</span>
         </div>
     </a>
 </div>
