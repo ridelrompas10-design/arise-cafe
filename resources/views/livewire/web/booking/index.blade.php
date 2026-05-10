@@ -24,18 +24,18 @@
                     <!-- Success Alert -->
                     @if(session()->has('success'))
 
-                        <div class="alert alert-success border-0 rounded-4 shadow-sm mb-4">
-                            {{ session('success') }}
-                        </div>
+                    <div class="alert alert-success border-0 rounded-4 shadow-sm mb-4">
+                        {{ session('success') }}
+                    </div>
 
                     @endif
 
                     <!-- Error Alert -->
                     @if(session()->has('error'))
 
-                        <div class="alert alert-danger border-0 rounded-4 shadow-sm mb-4">
-                            {{ session('error') }}
-                        </div>
+                    <div class="alert alert-danger border-0 rounded-4 shadow-sm mb-4">
+                        {{ session('error') }}
+                    </div>
 
                     @endif
 
@@ -49,35 +49,34 @@
                                 Pilih Meja
                             </label>
 
-                            <select
-                                wire:model="table_id"
-                                class="form-select custom-input"
-                            >
+                            <select wire:model="table_id" class="form-select custom-input">
 
                                 <option value="">
                                     -- Pilih Meja --
                                 </option>
 
-                                @forelse($tables as $item)
+                                @foreach($tables as $table)
 
-                                    <option value="{{ $item->id }}">
-                                        {{ $item->name }} - {{ $item->capacity }} Orang
-                                    </option>
+                                <option value="{{ $table->id }}">
+                                    {{ $table->name }} - {{ $table->capacity }} Orang
+                                </option>
 
-                                @empty
-
-                                    <option value="">
-                                        Tidak ada meja tersedia
-                                    </option>
-
-                                @endforelse
+                                @endforeach
 
                             </select>
 
+                            @if(count($tables) == 0)
+
+                            <small class="text-danger">
+                                Tidak ada meja tersedia
+                            </small>
+
+                            @endif
+
                             @error('table_id')
-                                <small class="text-danger">
-                                    {{ $message }}
-                                </small>
+                            <small class="text-danger">
+                                {{ $message }}
+                            </small>
                             @enderror
 
                         </div>
@@ -89,16 +88,12 @@
                                 Tanggal Booking
                             </label>
 
-                            <input
-                                type="date"
-                                wire:model="booking_date"
-                                class="form-control custom-input"
-                            >
+                            <input type="date" wire:model="booking_date" class="form-control custom-input">
 
                             @error('booking_date')
-                                <small class="text-danger">
-                                    {{ $message }}
-                                </small>
+                            <small class="text-danger">
+                                {{ $message }}
+                            </small>
                             @enderror
 
                         </div>
@@ -110,16 +105,12 @@
                                 Jam Booking
                             </label>
 
-                            <input
-                                type="time"
-                                wire:model="booking_time"
-                                class="form-control custom-input"
-                            >
+                            <input type="time" wire:model="booking_time" class="form-control custom-input">
 
                             @error('booking_time')
-                                <small class="text-danger">
-                                    {{ $message }}
-                                </small>
+                            <small class="text-danger">
+                                {{ $message }}
+                            </small>
                             @enderror
 
                         </div>
@@ -131,10 +122,7 @@
                                 Durasi Booking
                             </label>
 
-                            <select
-                                wire:model="duration"
-                                class="form-select custom-input"
-                            >
+                            <select wire:model="duration" class="form-select custom-input">
 
                                 <option value="1">1 Jam</option>
                                 <option value="2">2 Jam</option>
@@ -152,29 +140,24 @@
                                 Jumlah Orang
                             </label>
 
-                            <select
-                                wire:model="total_guest"
-                                class="form-select custom-input"
-                            >
+                            <select wire:model="total_guest" class="form-select custom-input">
 
                                 <option value="">
                                     -- Pilih Jumlah Orang --
                                 </option>
 
-                                @for($i = 1; $i <= 10; $i++)
-
-                                    <option value="{{ $i }}">
-                                        {{ $i }} Orang
+                                @for($i = 1; $i <= 10; $i++) <option value="{{ $i }}">
+                                    {{ $i }} Orang
                                     </option>
 
-                                @endfor
+                                    @endfor
 
                             </select>
 
                             @error('total_guest')
-                                <small class="text-danger">
-                                    {{ $message }}
-                                </small>
+                            <small class="text-danger">
+                                {{ $message }}
+                            </small>
                             @enderror
 
                         </div>
@@ -186,20 +169,12 @@
                                 Catatan
                             </label>
 
-                            <textarea
-                                wire:model="notes"
-                                rows="4"
-                                class="form-control custom-input"
-                                placeholder="Tambahkan catatan booking..."
-                            ></textarea>
+                            <textarea wire:model="notes" rows="4" class="form-control custom-input" placeholder="Tambahkan catatan booking..."></textarea>
 
                         </div>
 
                         <!-- Button -->
-                        <button
-                            type="submit"
-                            class="btn btn-primary w-100 rounded-4 py-3 fw-semibold shadow-sm booking-btn"
-                        >
+                        <button type="submit" class="btn btn-primary w-100 rounded-4 py-3 fw-semibold shadow-sm booking-btn">
                             Booking Sekarang
                         </button>
 
@@ -216,7 +191,6 @@
 </div>
 
 <style>
-
     body {
 
         background: #f3f4f6;
