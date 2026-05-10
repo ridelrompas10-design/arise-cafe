@@ -16,6 +16,14 @@ class Index extends Component
     public $notes;
     public $duration = 1;
 
+    public $tables = [];
+
+    public function mount()
+    {
+        // ambil semua meja available
+        $this->tables = Table::where('status', 'available')->get();
+    }
+
     public function store()
     {
         $this->validate([
@@ -26,7 +34,6 @@ class Index extends Component
             'duration'      => 'required',
         ]);
 
-        // cek booking bentrok
         $checkBooking = Booking::where('table_id', $this->table_id)
             ->where('booking_date', $this->booking_date)
             ->where('booking_time', $this->booking_time)
@@ -37,13 +44,12 @@ class Index extends Component
 
             session()->flash(
                 'error',
-                'Meja sudah dibooking di jam tersebut, silakan pilih meja atau jam lain'
+                'Meja sudah dibooking di jam tersebut'
             );
 
             return;
         }
 
-        // simpan booking
         Booking::create([
             'customer_id' => Auth::guard('customer')->id(),
             'table_id'    => $this->table_id,
@@ -57,7 +63,7 @@ class Index extends Component
 
         session()->flash(
             'success',
-            'Booking berhasil dikirim, menunggu konfirmasi admin'
+            'Booking berhasil dikirim'
         );
 
         return redirect()->route('account.my-bookings.index');
@@ -65,11 +71,6 @@ class Index extends Component
 
     public function render()
     {
-        // tampilkan semua meja available
-        $tables = Table::where('status', 'available')->get();
-
-        return view('livewire.web.booking.index', [
-            'tables' => $tables
-        ]);
+        return view('livewire.web.booking.index');
     }
 }

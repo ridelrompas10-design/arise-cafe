@@ -249,7 +249,7 @@
 
         background: #f8fafc;
 
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 
         transition: all 0.2s ease;
     }
@@ -259,8 +259,8 @@
         background: #ffffff;
 
         box-shadow:
-            0 0 0 0.25rem rgba(13,110,253,.12),
-            0 4px 12px rgba(0,0,0,0.08);
+            0 0 0 0.25rem rgba(13, 110, 253, .12),
+            0 4px 12px rgba(0, 0, 0, 0.08);
 
         border: none !important;
     }
@@ -276,7 +276,7 @@
 
         transform: translateY(-2px);
 
-        box-shadow: 0 6px 15px rgba(13,110,253,.25);
+        box-shadow: 0 6px 15px rgba(13, 110, 253, .25);
     }
 
 </style>
