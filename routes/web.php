@@ -12,12 +12,12 @@ Route::get('/login', Auth\Login::class)->name('login');
 
 //route group account
 Route::middleware('auth:customer')->group(function () {
-    
+
     Route::group(['prefix' => 'account'], function () {
-        
+
         //route my order
         Route::get('/my-orders', Account\MyOrders\Index::class)->name('account.my-orders.index');
-  
+
         //route my order show
         Route::get('/my-orders/{snap_token}', Account\MyOrders\Show::class)->name('account.my-orders.show');
 
@@ -26,6 +26,9 @@ Route::middleware('auth:customer')->group(function () {
 
         //route password
         Route::get('/password', Account\Password\Index::class)->name('account.password');
+
+        Route::get('/my-bookings', Account\MyBookings\Index::class)
+        ->name('account.my-bookings.index');
 
     });
 
@@ -48,3 +51,7 @@ Route::get('/cart', Web\Cart\Index::class)->name('web.cart.index')->middleware('
 
 //route checkout
 Route::get('/checkout', Web\Checkout\Index::class)->name('web.checkout.index')->middleware('auth:customer');
+
+Route::get('/booking', Web\Booking\Index::class)
+    ->middleware('auth:customer')
+    ->name('web.booking.index');

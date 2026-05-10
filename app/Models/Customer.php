@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Booking;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Customer extends Authenticatable

@@ -50,6 +50,8 @@ class Login extends Component
             'email' => $this->email,
             'password' => $this->password,
         ])) {
+            request()->session()->regenerate();
+            
             // session flash
             session()->flash('success', 'Login Berhasil');
 
