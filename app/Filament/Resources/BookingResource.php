@@ -39,6 +39,15 @@ class BookingResource extends Resource
                 Forms\Components\TimePicker::make('booking_time')
                     ->required(),
 
+                Forms\Components\Select::make('duration')
+                    ->options([
+                        1 => '1 Jam',
+                        2 => '2 Jam',
+                        3 => '3 Jam',
+                        4 => '4 Jam',
+                    ])
+                    ->required(),
+
                 Forms\Components\Textarea::make('notes'),
 
                 Forms\Components\Select::make('status')
@@ -71,6 +80,10 @@ class BookingResource extends Resource
 
                 Tables\Columns\TextColumn::make('booking_time')
                     ->label('Jam'),
+
+                Tables\Columns\TextColumn::make('duration')
+                    ->label('Durasi')
+                    ->suffix(' Jam'),
 
                 Tables\Columns\TextColumn::make('notes')
                     ->label('Catatan')

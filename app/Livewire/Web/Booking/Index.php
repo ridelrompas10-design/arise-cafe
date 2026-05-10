@@ -14,16 +14,17 @@ class Index extends Component
     public $booking_time;
     public $total_guest;
     public $notes;
+    public $duration = 1;
 
     public function store()
     {
         $this->validate([
-            'table_id'      => 'required',
-            'booking_date'  => 'required',
-            'booking_time'  => 'required',
-            'total_guest'   => 'required',
+            'table_id' => 'required',
+            'booking_date' => 'required',
+            'booking_time' => 'required',
+            'total_guest' => 'required',
+            'duration' => 'required',
         ]);
-
         $checkBooking = Booking::where('table_id', $this->table_id)
             ->where('booking_date', $this->booking_date)
             ->where('booking_time', $this->booking_time)
@@ -46,6 +47,7 @@ class Index extends Component
             'booking_date' => $this->booking_date,
             'booking_time' => $this->booking_time,
             'total_guest' => $this->total_guest,
+            'duration' => $this->duration,
             'notes' => $this->notes,
             'status' => 'pending'
         ]);
@@ -60,8 +62,10 @@ class Index extends Component
 
     public function render()
     {
+        $tables = Table::where('status', 'available')->get();
+
         return view('livewire.web.booking.index', [
-            'tables' => Table::where('status', 'available')->get()
+            'tables' => $tables
         ]);
     }
 }

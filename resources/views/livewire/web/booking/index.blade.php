@@ -4,46 +4,75 @@
 
         <div class="col-md-8">
 
-            <div class="card border-0 shadow-sm rounded-4">
+            <div
+                class="card border-0 shadow-lg rounded-5"
+                style="
+                    background: #ffffff;
+                "
+            >
 
                 <div class="card-body p-5">
 
+                    <!-- Header -->
                     <div class="text-center mb-5">
 
-                        <h2 class="fw-bold mb-2">
+                        <h1
+                            class="fw-bold mb-2"
+                            style="
+                                color: #1e293b;
+                            "
+                        >
                             Booking Meja Cafe
-                        </h2>
+                        </h1>
 
-                        <p class="text-muted">
+                        <p
+                            class="text-muted"
+                            style="
+                                font-size: 15px;
+                            "
+                        >
                             Reservasi meja favorit Anda dengan mudah
                         </p>
 
                     </div>
 
+                    <!-- Alert Success -->
                     @if(session()->has('success'))
-                        <div class="alert alert-success border-0 rounded-4 shadow-sm">
+
+                        <div
+                            class="alert alert-success border-0 rounded-4 shadow-sm mb-4"
+                        >
                             {{ session('success') }}
                         </div>
+
                     @endif
 
+                    <!-- Alert Error -->
                     @if(session()->has('error'))
-                        <div class="alert alert-danger border-0 rounded-4 shadow-sm">
+
+                        <div
+                            class="alert alert-danger border-0 rounded-4 shadow-sm mb-4"
+                        >
                             {{ session('error') }}
                         </div>
+
                     @endif
 
+                    <!-- Form -->
                     <form wire:submit.prevent="store">
 
                         <!-- Pilih Meja -->
                         <div class="mb-4">
 
-                            <label class="form-label fw-semibold">
+                            <label
+                                class="form-label fw-semibold mb-2"
+                            >
                                 Pilih Meja
                             </label>
 
                             <select
                                 wire:model="table_id"
-                                class="form-select rounded-4 border-0 shadow-sm p-3"
+                                class="form-select custom-input"
                             >
 
                                 <option value="">
@@ -53,7 +82,9 @@
                                 @foreach($tables as $table)
 
                                     <option value="{{ $table->id }}">
-                                        {{ $table->name }} - Kapasitas {{ $table->capacity }} Orang
+                                        {{ $table->name }}
+                                        -
+                                        Kapasitas {{ $table->capacity }} Orang
                                     </option>
 
                                 @endforeach
@@ -62,46 +93,86 @@
 
                         </div>
 
-                        <!-- Tanggal -->
+                        <!-- Tanggal Booking -->
                         <div class="mb-4">
 
-                            <label class="form-label fw-semibold">
+                            <label
+                                class="form-label fw-semibold mb-2"
+                            >
                                 Tanggal Booking
                             </label>
 
                             <input
                                 type="date"
                                 wire:model="booking_date"
-                                class="form-control rounded-4 border-0 shadow-sm p-3"
+                                class="form-control custom-input"
                             >
 
                         </div>
 
-                        <!-- Jam -->
+                        <!-- Jam Booking -->
                         <div class="mb-4">
 
-                            <label class="form-label fw-semibold">
+                            <label
+                                class="form-label fw-semibold mb-2"
+                            >
                                 Jam Booking
                             </label>
 
                             <input
                                 type="time"
                                 wire:model="booking_time"
-                                class="form-control rounded-4 border-0 shadow-sm p-3"
+                                class="form-control custom-input"
                             >
+
+                        </div>
+
+                        <!-- Durasi -->
+                        <div class="mb-4">
+
+                            <label
+                                class="form-label fw-semibold mb-2"
+                            >
+                                Durasi Booking
+                            </label>
+
+                            <select
+                                wire:model="duration"
+                                class="form-select custom-input"
+                            >
+
+                                <option value="1">
+                                    1 Jam
+                                </option>
+
+                                <option value="2">
+                                    2 Jam
+                                </option>
+
+                                <option value="3">
+                                    3 Jam
+                                </option>
+
+                                <option value="4">
+                                    4 Jam
+                                </option>
+
+                            </select>
 
                         </div>
 
                         <!-- Jumlah Orang -->
                         <div class="mb-4">
 
-                            <label class="form-label fw-semibold">
+                            <label
+                                class="form-label fw-semibold mb-2"
+                            >
                                 Jumlah Orang
                             </label>
 
                             <select
                                 wire:model="total_guest"
-                                class="form-select rounded-4 border-0 shadow-sm p-3"
+                                class="form-select custom-input"
                             >
 
                                 <option value="">
@@ -126,14 +197,16 @@
                         <!-- Catatan -->
                         <div class="mb-4">
 
-                            <label class="form-label fw-semibold">
+                            <label
+                                class="form-label fw-semibold mb-2"
+                            >
                                 Catatan
                             </label>
 
                             <textarea
                                 wire:model="notes"
                                 rows="4"
-                                class="form-control rounded-4 border-0 shadow-sm p-3"
+                                class="form-control custom-input"
                                 placeholder="Tambahkan catatan booking..."
                             ></textarea>
 
@@ -143,6 +216,9 @@
                         <button
                             type="submit"
                             class="btn btn-primary w-100 rounded-4 py-3 fw-semibold shadow-sm"
+                            style="
+                                font-size: 16px;
+                            "
                         >
                             Booking Sekarang
                         </button>
@@ -158,3 +234,30 @@
     </div>
 
 </div>
+
+<!-- Custom Style -->
+<style>
+
+    .custom-input {
+
+        border: none !important;
+
+        border-radius: 20px !important;
+
+        padding: 14px 18px !important;
+
+        box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+
+        transition: 0.2s;
+    }
+
+    .custom-input:focus {
+
+        box-shadow:
+            0 0 0 0.2rem rgba(13,110,253,.15),
+            0 3px 10px rgba(0,0,0,0.06);
+
+        border: none !important;
+    }
+
+</style>

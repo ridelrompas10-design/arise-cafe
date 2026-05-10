@@ -12,8 +12,9 @@ class Booking extends Model
         'booking_date',
         'booking_time',
         'total_guest',
+        'duration',
         'notes',
-        'status'
+        'status',
     ];
 
     public function customer()
