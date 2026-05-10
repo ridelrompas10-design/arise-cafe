@@ -19,12 +19,14 @@ class Index extends Component
     public function store()
     {
         $this->validate([
-            'table_id' => 'required',
-            'booking_date' => 'required',
-            'booking_time' => 'required',
-            'total_guest' => 'required',
-            'duration' => 'required',
+            'table_id'      => 'required',
+            'booking_date'  => 'required',
+            'booking_time'  => 'required',
+            'total_guest'   => 'required',
+            'duration'      => 'required',
         ]);
+
+        // cek booking bentrok
         $checkBooking = Booking::where('table_id', $this->table_id)
             ->where('booking_date', $this->booking_date)
             ->where('booking_time', $this->booking_time)
@@ -41,15 +43,16 @@ class Index extends Component
             return;
         }
 
+        // simpan booking
         Booking::create([
             'customer_id' => Auth::guard('customer')->id(),
-            'table_id' => $this->table_id,
-            'booking_date' => $this->booking_date,
-            'booking_time' => $this->booking_time,
+            'table_id'    => $this->table_id,
+            'booking_date'=> $this->booking_date,
+            'booking_time'=> $this->booking_time,
             'total_guest' => $this->total_guest,
-            'duration' => $this->duration,
-            'notes' => $this->notes,
-            'status' => 'pending'
+            'duration'    => $this->duration,
+            'notes'       => $this->notes,
+            'status'      => 'pending'
         ]);
 
         session()->flash(
@@ -62,20 +65,11 @@ class Index extends Component
 
     public function render()
     {
-        $tables = Table::where('status', 'available');
-
-        // hanya filter jika tanggal sudah dipilih
-        if ($this->booking_date) {
-
-            $bookedTableIds = Booking::where('booking_date', $this->booking_date)
-                ->whereIn('status', ['pending', 'confirmed'])
-                ->pluck('table_id');
-
-            $tables->whereNotIn('id', $bookedTableIds);
-        }
+        // tampilkan semua meja available
+        $tables = Table::where('status', 'available')->get();
 
         return view('livewire.web.booking.index', [
-            'tables' => $tables->get()
+            'tables' => $tables
         ]);
     }
 }

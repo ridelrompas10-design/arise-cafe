@@ -4,55 +4,36 @@
 
         <div class="col-md-8">
 
-            <div
-                class="card border-0 shadow-lg rounded-5"
-                style="
-                    background: #ffffff;
-                "
-            >
+            <div class="card border-0 shadow-lg rounded-5 booking-card">
 
                 <div class="card-body p-5">
 
                     <!-- Header -->
                     <div class="text-center mb-5">
 
-                        <h1
-                            class="fw-bold mb-2"
-                            style="
-                                color: #1e293b;
-                            "
-                        >
+                        <h1 class="fw-bold booking-title">
                             Booking Meja Cafe
                         </h1>
 
-                        <p
-                            class="text-muted"
-                            style="
-                                font-size: 15px;
-                            "
-                        >
+                        <p class="text-muted booking-subtitle">
                             Reservasi meja favorit Anda dengan mudah
                         </p>
 
                     </div>
 
-                    <!-- Alert Success -->
+                    <!-- Success Alert -->
                     @if(session()->has('success'))
 
-                        <div
-                            class="alert alert-success border-0 rounded-4 shadow-sm mb-4"
-                        >
+                        <div class="alert alert-success border-0 rounded-4 shadow-sm mb-4">
                             {{ session('success') }}
                         </div>
 
                     @endif
 
-                    <!-- Alert Error -->
+                    <!-- Error Alert -->
                     @if(session()->has('error'))
 
-                        <div
-                            class="alert alert-danger border-0 rounded-4 shadow-sm mb-4"
-                        >
+                        <div class="alert alert-danger border-0 rounded-4 shadow-sm mb-4">
                             {{ session('error') }}
                         </div>
 
@@ -64,9 +45,7 @@
                         <!-- Pilih Meja -->
                         <div class="mb-4">
 
-                            <label
-                                class="form-label fw-semibold mb-2"
-                            >
+                            <label class="form-label fw-semibold mb-2">
                                 Pilih Meja
                             </label>
 
@@ -79,26 +58,34 @@
                                     -- Pilih Meja --
                                 </option>
 
-                                @foreach($tables as $table)
+                                @forelse($tables as $item)
 
-                                    <option value="{{ $table->id }}">
-                                        {{ $table->name }}
-                                        -
-                                        Kapasitas {{ $table->capacity }} Orang
+                                    <option value="{{ $item->id }}">
+                                        {{ $item->name }} - {{ $item->capacity }} Orang
                                     </option>
 
-                                @endforeach
+                                @empty
+
+                                    <option value="">
+                                        Tidak ada meja tersedia
+                                    </option>
+
+                                @endforelse
 
                             </select>
+
+                            @error('table_id')
+                                <small class="text-danger">
+                                    {{ $message }}
+                                </small>
+                            @enderror
 
                         </div>
 
                         <!-- Tanggal Booking -->
                         <div class="mb-4">
 
-                            <label
-                                class="form-label fw-semibold mb-2"
-                            >
+                            <label class="form-label fw-semibold mb-2">
                                 Tanggal Booking
                             </label>
 
@@ -108,14 +95,18 @@
                                 class="form-control custom-input"
                             >
 
+                            @error('booking_date')
+                                <small class="text-danger">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+
                         </div>
 
                         <!-- Jam Booking -->
                         <div class="mb-4">
 
-                            <label
-                                class="form-label fw-semibold mb-2"
-                            >
+                            <label class="form-label fw-semibold mb-2">
                                 Jam Booking
                             </label>
 
@@ -125,14 +116,18 @@
                                 class="form-control custom-input"
                             >
 
+                            @error('booking_time')
+                                <small class="text-danger">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+
                         </div>
 
-                        <!-- Durasi -->
+                        <!-- Durasi Booking -->
                         <div class="mb-4">
 
-                            <label
-                                class="form-label fw-semibold mb-2"
-                            >
+                            <label class="form-label fw-semibold mb-2">
                                 Durasi Booking
                             </label>
 
@@ -141,21 +136,10 @@
                                 class="form-select custom-input"
                             >
 
-                                <option value="1">
-                                    1 Jam
-                                </option>
-
-                                <option value="2">
-                                    2 Jam
-                                </option>
-
-                                <option value="3">
-                                    3 Jam
-                                </option>
-
-                                <option value="4">
-                                    4 Jam
-                                </option>
+                                <option value="1">1 Jam</option>
+                                <option value="2">2 Jam</option>
+                                <option value="3">3 Jam</option>
+                                <option value="4">4 Jam</option>
 
                             </select>
 
@@ -164,9 +148,7 @@
                         <!-- Jumlah Orang -->
                         <div class="mb-4">
 
-                            <label
-                                class="form-label fw-semibold mb-2"
-                            >
+                            <label class="form-label fw-semibold mb-2">
                                 Jumlah Orang
                             </label>
 
@@ -179,27 +161,28 @@
                                     -- Pilih Jumlah Orang --
                                 </option>
 
-                                <option value="1">1 Orang</option>
-                                <option value="2">2 Orang</option>
-                                <option value="3">3 Orang</option>
-                                <option value="4">4 Orang</option>
-                                <option value="5">5 Orang</option>
-                                <option value="6">6 Orang</option>
-                                <option value="7">7 Orang</option>
-                                <option value="8">8 Orang</option>
-                                <option value="9">9 Orang</option>
-                                <option value="10">10 Orang</option>
+                                @for($i = 1; $i <= 10; $i++)
+
+                                    <option value="{{ $i }}">
+                                        {{ $i }} Orang
+                                    </option>
+
+                                @endfor
 
                             </select>
+
+                            @error('total_guest')
+                                <small class="text-danger">
+                                    {{ $message }}
+                                </small>
+                            @enderror
 
                         </div>
 
                         <!-- Catatan -->
                         <div class="mb-4">
 
-                            <label
-                                class="form-label fw-semibold mb-2"
-                            >
+                            <label class="form-label fw-semibold mb-2">
                                 Catatan
                             </label>
 
@@ -215,10 +198,7 @@
                         <!-- Button -->
                         <button
                             type="submit"
-                            class="btn btn-primary w-100 rounded-4 py-3 fw-semibold shadow-sm"
-                            style="
-                                font-size: 16px;
-                            "
+                            class="btn btn-primary w-100 rounded-4 py-3 fw-semibold shadow-sm booking-btn"
                         >
                             Booking Sekarang
                         </button>
@@ -235,8 +215,29 @@
 
 </div>
 
-<!-- Custom Style -->
 <style>
+
+    body {
+
+        background: #f3f4f6;
+    }
+
+    .booking-card {
+
+        background: #ffffff;
+        overflow: hidden;
+    }
+
+    .booking-title {
+
+        color: #1e293b;
+        font-size: 42px;
+    }
+
+    .booking-subtitle {
+
+        font-size: 15px;
+    }
 
     .custom-input {
 
@@ -244,20 +245,38 @@
 
         border-radius: 20px !important;
 
-        padding: 14px 18px !important;
+        padding: 15px 18px !important;
 
-        box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+        background: #f8fafc;
 
-        transition: 0.2s;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+
+        transition: all 0.2s ease;
     }
 
     .custom-input:focus {
 
+        background: #ffffff;
+
         box-shadow:
-            0 0 0 0.2rem rgba(13,110,253,.15),
-            0 3px 10px rgba(0,0,0,0.06);
+            0 0 0 0.25rem rgba(13,110,253,.12),
+            0 4px 12px rgba(0,0,0,0.08);
 
         border: none !important;
+    }
+
+    .booking-btn {
+
+        font-size: 16px;
+
+        transition: 0.2s ease;
+    }
+
+    .booking-btn:hover {
+
+        transform: translateY(-2px);
+
+        box-shadow: 0 6px 15px rgba(13,110,253,.25);
     }
 
 </style>
