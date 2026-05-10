@@ -62,10 +62,20 @@ class Index extends Component
 
     public function render()
     {
-        $tables = Table::where('status', 'available')->get();
+        $tables = Table::where('status', 'available');
+
+        // hanya filter jika tanggal sudah dipilih
+        if ($this->booking_date) {
+
+            $bookedTableIds = Booking::where('booking_date', $this->booking_date)
+                ->whereIn('status', ['pending', 'confirmed'])
+                ->pluck('table_id');
+
+            $tables->whereNotIn('id', $bookedTableIds);
+        }
 
         return view('livewire.web.booking.index', [
-            'tables' => $tables
+            'tables' => $tables->get()
         ]);
     }
 }
