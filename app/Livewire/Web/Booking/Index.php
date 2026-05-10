@@ -16,14 +16,6 @@ class Index extends Component
     public $notes;
     public $duration = 1;
 
-    public $tables = [];
-
-    public function mount()
-    {
-        // ambil semua meja available
-        $this->tables = Table::where('status', 'available')->get();
-    }
-
     public function store()
     {
         $this->validate([
@@ -34,6 +26,7 @@ class Index extends Component
             'duration'      => 'required',
         ]);
 
+        // cek apakah meja sudah dibooking
         $checkBooking = Booking::where('table_id', $this->table_id)
             ->where('booking_date', $this->booking_date)
             ->where('booking_time', $this->booking_time)
@@ -51,19 +44,19 @@ class Index extends Component
         }
 
         Booking::create([
-            'customer_id' => Auth::guard('customer')->id(),
-            'table_id'    => $this->table_id,
-            'booking_date'=> $this->booking_date,
-            'booking_time'=> $this->booking_time,
-            'total_guest' => $this->total_guest,
-            'duration'    => $this->duration,
-            'notes'       => $this->notes,
-            'status'      => 'pending'
+            'customer_id'  => Auth::guard('customer')->id(),
+            'table_id'     => $this->table_id,
+            'booking_date' => $this->booking_date,
+            'booking_time' => $this->booking_time,
+            'total_guest'  => $this->total_guest,
+            'duration'     => $this->duration,
+            'notes'        => $this->notes,
+            'status'       => 'pending'
         ]);
 
         session()->flash(
             'success',
-            'Booking berhasil dikirim'
+            'Booking berhasil dikirim, menunggu konfirmasi admin'
         );
 
         return redirect()->route('account.my-bookings.index');
@@ -71,6 +64,11 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.web.booking.index');
+        // tampilkan semua meja available
+        $tables = Table::where('status', 'available')->get();
+
+        return view('livewire.web.booking.index', [
+            'tables' => $tables
+        ]);
     }
 }
